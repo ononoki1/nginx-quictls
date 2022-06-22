@@ -54,7 +54,7 @@ auto/configure --prefix=/etc/nginx --sbin-path=/usr/sbin/nginx \
 --without-http_upstream_random_module --without-http_upstream_zone_module \
 --without-http_userid_module --without-http_uwsgi_module \
 --with-zlib=modules/zlib --with-openssl=modules/openssl \
---with-openssl-opt="enable-ktls no-comp enable-ec_nistp_64_gcc_128 no-ssl3-method no-tls1-method no-tls1_1-method no-dtls1-method no-dtls1_2-method" \
+--with-openssl-opt="enable-ktls enable-ec_nistp_64_gcc_128 enable-weak-ssl-ciphers" \
 --with-cc-opt="-fstack-protector-strong -Wno-sign-compare" \
 --with-ld-opt=-ljemalloc > /dev/null 2>&1
 make -j$(nproc) > /dev/null 2>&1
