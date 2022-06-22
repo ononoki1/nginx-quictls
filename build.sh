@@ -56,11 +56,11 @@ auto/configure --prefix=/etc/nginx --sbin-path=/usr/sbin/nginx \
 --with-zlib=modules/zlib --with-openssl=modules/openssl \
 --with-openssl-opt="enable-ktls no-comp no-deprecated enable-ec_nistp_64_gcc_128 no-gost no-ssl-method no-tls1-method no-tls1_1-method no-dtls-method" \
 --with-cc-opt="-fstack-protector-strong -Wno-sign-compare" \
---with-ld-opt=-ljemalloc > /dev/null 2>&1
-make -j$(nproc) > /dev/null 2>&1
+--with-ld-opt=-ljemalloc
+make -j$(nproc)
 mv objs/nginx ..
 cd ..
-hash=$(sha256sum nginx | awk '{print $1}')
+hash=$(ls -l nginx | awk '{print $5}')
 patch=$(cat /github/workspace/patch)
 minor=$(cat /github/workspace/minor)
 if [[ $hash != $(cat /github/workspace/hash) ]]; then
