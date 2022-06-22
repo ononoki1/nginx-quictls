@@ -8,9 +8,11 @@ cmake curl git libcurl4-openssl-dev libjemalloc-dev libmaxminddb-dev libmodsecur
 libpcre2-dev libsodium-dev mercurial > /dev/null 2>&1
 echo Fetch nginx-quic source code.
 hg clone -b quic https://hg.nginx.org/nginx-quic > /dev/null 2>&1
-echo Fetch additional dependencies.
+echo Fetch quictls source code.
 mkdir nginx-quic/modules
 cd nginx-quic/modules
+git clone https://github.com/quictls/openssl > /dev/null 2>&1
+echo Fetch additional dependencies.
 git clone https://github.com/cloudflare/zlib > /dev/null 2>&1
 cd zlib
 make -f Makefile.in distclean > /dev/null 2>&1
