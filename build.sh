@@ -60,8 +60,8 @@ auto/configure --prefix=/etc/nginx --sbin-path=/usr/sbin/nginx \
 --with-cc-opt="-Imodules/openssl/build/include -fstack-protector-strong -Wno-sign-compare" \
 --with-ld-opt="-ljemalloc -Lmodules/openssl/build/lib64" > /dev/null 2>&1
 make -j$(nproc) > /dev/null 2>&1
-ls -A
-exit 1
+mv objs/nginx ..
+ls -A objs
 cd ..
 hash=$(sha256sum nginx | awk '{print $1}')
 patch=$(cat /github/workspace/patch)
