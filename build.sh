@@ -14,10 +14,13 @@ mkdir modules
 cd modules
 git clone https://github.com/quictls/openssl > /dev/null 2>&1
 echo Build quictls.
-cd openssl
+git clone https://github.com/cloudflare/zlib > /dev/null 2>&1
+cd zlib
+make -f Makefile.in distclean > /dev/null 2>&1
+cd ../openssl
 mkdir build
-./Configure --prefix=$(pwd)/build --openssldir=$(pwd)/build \
-enable-ktls enable-ec_nistp_64_gcc_128 > /dev/null 2>&1
+./Configure --prefix=$(pwd)/build --with-zlib-lib=../zlib \
+enable-ktls enable-ec_nistp_64_gcc_128 zlib
 make install_dev -j$(nproc) > /dev/null 2>&1
 echo Fetch additional dependencies.
 cd ..
@@ -25,10 +28,6 @@ git clone -b current https://github.com/ADD-SP/ngx_waf > /dev/null 2>&1
 cd ngx_waf
 git clone https://github.com/DaveGamble/cJSON lib/cjson > /dev/null 2>&1
 git clone https://github.com/troydhanson/uthash lib/uthash > /dev/null 2>&1
-cd ..
-git clone https://github.com/cloudflare/zlib > /dev/null 2>&1
-cd zlib
-make -f Makefile.in distclean > /dev/null 2>&1
 cd ..
 git clone --recursive https://github.com/google/ngx_brotli > /dev/null 2>&1
 git clone https://github.com/openresty/headers-more-nginx-module > /dev/null 2>&1
@@ -61,8 +60,8 @@ auto/configure --prefix=/etc/nginx --sbin-path=/usr/sbin/nginx \
 --without-http_upstream_random_module --without-http_upstream_zone_module \
 --without-http_userid_module --without-http_uwsgi_module \
 --with-zlib=modules/zlib \
---with-cc-opt="-static -Imodules/openssl/build/include -fstack-protector-strong -Wno-sign-compare" \
---with-ld-opt="-static -ljemalloc -Lmodules/openssl/build/lib64"
+--with-cc-opt="-Imodules/openssl/build/include -fstack-protector-strong -Wno-sign-compare" \
+--with-ld-opt="-ljemalloc -Lmodules/openssl/build/lib64"
 make -j$(nproc)
 mv objs/nginx ..
 cd ..
