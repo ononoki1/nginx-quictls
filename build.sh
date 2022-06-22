@@ -54,7 +54,7 @@ auto/configure --prefix=/etc/nginx --sbin-path=/usr/sbin/nginx \
 --without-http_upstream_random_module --without-http_upstream_zone_module \
 --without-http_userid_module --without-http_uwsgi_module \
 --with-zlib=modules/zlib --with-openssl=modules/openssl \
---with-openssl-opt="no-afalgneg enable-ktls no-capieng no-cmp no-cms no-comp no-deprecated no-dgram no-dso no-dynamic-engine enable-ec_nistp_64_gcc_128 no-engine no-gost no-legacy no-makedepend no-module no-nextprotoneg no-shared no-srp no-srtp no-ssl-trace no-static-engine no-ssl3-method no-tls1-method no-tls1_1-method no-dtls1-method no-dtls1_2-method" \
+--with-openssl-opt="no-afalgeng enable-ktls no-capieng no-cmp no-cms no-comp no-deprecated no-dgram no-dso no-dynamic-engine enable-ec_nistp_64_gcc_128 no-engine no-gost no-legacy no-makedepend no-module no-nextprotoneg no-shared no-srp no-srtp no-ssl-trace no-static-engine no-ssl3-method no-tls1-method no-tls1_1-method no-dtls1-method no-dtls1_2-method" \
 --with-cc-opt="-fstack-protector-strong -Wno-sign-compare" \
 --with-ld-opt=-ljemalloc
 make -j$(nproc)
