@@ -1,0 +1,37 @@
+name: build
+on:
+  schedule:
+    - cron: "0 * * * *"
+  push:
+    branches: [main]
+    paths:
+      - "**.sh"
+      - Dockerfile
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: build
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Build
+        uses: ./
+      - name: Upload
+        uses: actions/upload-artifact@v3.0.0
+        with:
+          name: v1.${{ env.minor }}.${{ env.patch }}
+          path: /home/runner/work/_temp/_github_home/nginx
+      - name: Update
+        if: ${{ env.change }}
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: Update hash and version
+      - name: Release
+        if: ${{ env.change }}
+        uses: softprops/action-gh-release@v1
+        with:
+          files: /home/runner/work/_temp/_github_home/nginx
+          body: "SHA256: ${{ env.hash }}"
+          tag_name: v1.${{ env.minor }}.${{ env.patch }}
+          generate_release_notes: false
