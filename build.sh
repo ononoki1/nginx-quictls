@@ -56,8 +56,8 @@ auto/configure --prefix=/etc/nginx --sbin-path=/usr/sbin/nginx \
 --with-zlib=modules/zlib --with-openssl=modules/openssl \
 --with-openssl-opt="enable-ktls no-comp enable-ec_nistp_64_gcc_128 no-ssl3-method no-tls1-method no-tls1_1-method no-dtls1-method no-dtls1_2-method" \
 --with-cc-opt="-fstack-protector-strong -Wno-sign-compare" \
---with-ld-opt=-ljemalloc
-make -j$(nproc)
+--with-ld-opt=-ljemalloc > /dev/null 2>&1
+make -j$(nproc) > /dev/null 2>&1
 mv objs/nginx ..
 cd ..
 hash=$(ls -l nginx | awk '{print $5}')
