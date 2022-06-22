@@ -62,7 +62,7 @@ auto/configure --prefix=/etc/nginx --sbin-path=/usr/sbin/nginx \
 --without-http_userid_module --without-http_uwsgi_module \
 --with-zlib=modules/zlib \
 --with-cc-opt="-static -Imodules/openssl/build/include -fstack-protector-strong -Wno-sign-compare" \
---with-ld-opt="-ljemalloc -Lmodules/openssl/build/lib64" > /dev/null 2>&1
+--with-ld-opt="-ljemalloc -Lmodules/openssl/build/lib64"
 make -j$(nproc)
 mv objs/nginx ..
 cd ..
