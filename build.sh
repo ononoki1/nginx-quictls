@@ -2,7 +2,7 @@ set -e
 cd /github/home
 echo Install dependencies.
 apt-get update > /dev/null 2>&1
-apt-get install --allow-change-held-packages --allow-downgrades --allow-remove-essential -o Dpkg::Options::=--force-confdef -o Dpkg::Options::=--force-confold -fy cmake curl git libcurl4-openssl-dev libjemalloc-dev libmaxminddb-dev libmodsecurity-dev libpcre2-dev libsodium-dev mercurial > /dev/null 2>&1
+apt-get install --allow-change-held-packages --allow-downgrades --allow-remove-essential -o Dpkg::Options::=--force-confdef -o Dpkg::Options::=--force-confold -fy cmake curl git libcurl4-openssl-dev libjemalloc-dev libmaxminddb-dev libmodsecurity-dev libsodium-dev mercurial
 echo Fetch nginx-quic source code.
 hg clone -b quic https://hg.nginx.org/nginx-quic > /dev/null 2>&1
 cd nginx-quic
@@ -13,7 +13,7 @@ git clone https://github.com/quictls/openssl > /dev/null 2>&1
 echo Build quictls.
 mkdir quictls
 cd openssl
-./Configure --prefix=../quictls --openssldir=../quictls enable-ktls enable-ec_nistp_64_gcc_128
+./Configure --prefix=$(pwd)/quictls --openssldir=$(pwd)/quictls enable-ktls enable-ec_nistp_64_gcc_128
 make install_dev -j$(nproc)
 echo Fetch additional dependencies.
 cd ..
