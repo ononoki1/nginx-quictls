@@ -32,9 +32,9 @@ git clone https://github.com/leev/ngx_http_geoip2_module > /dev/null 2>&1
 echo Build nginx.
 cd ..
 auto/configure --prefix=/etc/nginx --sbin-path=/usr/sbin/nginx \
---add-module=../modules/ngx_waf \
---add-module=../modules/headers-more-nginx-module \
---add-module=../modules/ngx_http_geoip2_module \
+--add-module=modules/ngx_waf \
+--add-module=modules/headers-more-nginx-module \
+--add-module=modules/ngx_http_geoip2_module \
 --conf-path=/etc/nginx/nginx.conf \
 --error-log-path=/var/log/nginx/error.log \
 --http-log-path=/var/log/nginx/access.log \
@@ -57,8 +57,8 @@ auto/configure --prefix=/etc/nginx --sbin-path=/usr/sbin/nginx \
 --without-http_upstream_random_module --without-http_upstream_zone_module \
 --without-http_userid_module --without-http_uwsgi_module \
 --with-zlib=../modules/zlib \
---with-cc-opt="-I../modules/openssl/build/include -fstack-protector-strong -Wno-sign-compare" \
---with-ld-opt="-ljemalloc -L../modules/openssl/build/lib64"
+--with-cc-opt="-Imodules/openssl/build/include -fstack-protector-strong -Wno-sign-compare" \
+--with-ld-opt="-ljemalloc -Lmodules/openssl/build/lib64"
 make -j$(nproc)
 mv nginx ..
 cd ..
