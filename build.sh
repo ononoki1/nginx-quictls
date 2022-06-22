@@ -2,29 +2,25 @@ set -e
 cd /github/home
 echo Install dependencies.
 apt-get update > /dev/null 2>&1
-apt-get install --allow-change-held-packages --allow-downgrades --allow-remove-essential -o Dpkg::Options::=--force-confdef -o Dpkg::Options::=--force-confold -fy cmake curl git libcurl4-openssl-dev libjemalloc-dev libmaxminddb-dev libmodsecurity-dev libpcre2-dev libsodium-dev mercurial > /dev/null 2>&1
+apt-get install --allow-change-held-packages --allow-downgrades --allow-remove-essential \
+-o Dpkg::Options::=--force-confdef -o Dpkg::Options::=--force-confold -fy \
+cmake curl git libcurl4-openssl-dev libjemalloc-dev libmaxminddb-dev libmodsecurity-dev \
+libpcre2-dev libsodium-dev mercurial > /dev/null 2>&1
 echo Fetch nginx-quic source code.
 hg clone -b quic https://hg.nginx.org/nginx-quic > /dev/null 2>&1
-cd nginx-quic
 echo Fetch quictls source code.
-mkdir modules
-cd modules
+mkdir nginx-quic/modules
+cd nginx-quic/modules
 git clone https://github.com/quictls/openssl > /dev/null 2>&1
-echo Build quictls.
-cd openssl
-mkdir build
-./Configure --prefix=$(pwd)/build --openssldir=$(pwd)/build enable-ktls enable-ec_nistp_64_gcc_128 > /dev/null 2>&1
-make install_dev -j$(nproc) > /dev/null 2>&1
 echo Fetch additional dependencies.
+git clone https://github.com/cloudflare/zlib > /dev/null 2>&1
+cd zlib
+make -f Makefile.in distclean > /dev/null 2>&1
 cd ..
 git clone -b current https://github.com/ADD-SP/ngx_waf > /dev/null 2>&1
 cd ngx_waf
 git clone https://github.com/DaveGamble/cJSON lib/cjson > /dev/null 2>&1
 git clone https://github.com/troydhanson/uthash lib/uthash > /dev/null 2>&1
-cd ..
-git clone https://github.com/cloudflare/zlib > /dev/null 2>&1
-cd zlib
-make -f Makefile.in distclean > /dev/null 2>&1
 cd ..
 git clone --recursive https://github.com/google/ngx_brotli > /dev/null 2>&1
 git clone https://github.com/openresty/headers-more-nginx-module > /dev/null 2>&1
@@ -33,6 +29,7 @@ echo Build nginx.
 cd ..
 auto/configure --prefix=/etc/nginx --sbin-path=/usr/sbin/nginx \
 --add-module=modules/ngx_waf \
+--add-module=modules/ngx_brotli \
 --add-module=modules/headers-more-nginx-module \
 --add-module=modules/ngx_http_geoip2_module \
 --conf-path=/etc/nginx/nginx.conf \
@@ -56,9 +53,10 @@ auto/configure --prefix=/etc/nginx --sbin-path=/usr/sbin/nginx \
 --without-http_upstream_least_conn_module \
 --without-http_upstream_random_module --without-http_upstream_zone_module \
 --without-http_userid_module --without-http_uwsgi_module \
---with-zlib=modules/zlib \
---with-cc-opt="-static -Imodules/openssl/build/include -fstack-protector-strong -Wno-sign-compare" \
---with-ld-opt="-ljemalloc -Lmodules/openssl/build/lib64" > /dev/null 2>&1
+--with-zlib=modules/zlib --with-openssl=modules/openssl \
+--with-openssl-opt="enable-ktls enable-ec_nistp_64_gcc_128" \
+--with-cc-opt="-fstack-protector-strong -Wno-sign-compare" \
+--with-ld-opt=-ljemalloc > /dev/null 2>&1
 make -j$(nproc) > /dev/null 2>&1
 mv objs/nginx ..
 cd ..
