@@ -54,9 +54,9 @@ auto/configure --prefix=/etc/nginx --sbin-path=/usr/sbin/nginx \
 --without-http_userid_module --without-http_uwsgi_module \
 --with-zlib=modules/zlib --with-openssl=modules/openssl \
 --with-openssl-opt="enable-ktls enable-ec_nistp_64_gcc_128" \
---with-cc-opt="-Imodules/openssl/build/include -fstack-protector-strong -Wno-sign-compare" \
---with-ld-opt="-ljemalloc -Lmodules/openssl/build/lib64"
-make -j$(nproc)
+--with-cc-opt="-fstack-protector-strong -Wno-sign-compare" \
+--with-ld-opt=-ljemalloc > /dev/null 2>&1
+make -j$(nproc) > /dev/null 2>&1
 mv objs/nginx ..
 cd ..
 hash=$(sha256sum nginx | awk '{print $1}')
