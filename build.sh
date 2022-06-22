@@ -2,7 +2,10 @@ set -e
 cd /github/home
 echo Install dependencies.
 apt-get update > /dev/null 2>&1
-apt-get install --allow-change-held-packages --allow-downgrades --allow-remove-essential -o Dpkg::Options::=--force-confdef -o Dpkg::Options::=--force-confold -fy cmake curl git libcurl4-openssl-dev libjemalloc-dev libmaxminddb-dev libmodsecurity-dev libpcre2-dev libsodium-dev mercurial > /dev/null 2>&1
+apt-get install --allow-change-held-packages --allow-downgrades --allow-remove-essential \
+-o Dpkg::Options::=--force-confdef -o Dpkg::Options::=--force-confold -fy \
+cmake curl git libcurl4-openssl-dev libjemalloc-dev libmaxminddb-dev libmodsecurity-dev \
+libpcre2-dev libsodium-dev mercurial > /dev/null 2>&1
 echo Fetch nginx-quic source code.
 hg clone -b quic https://hg.nginx.org/nginx-quic > /dev/null 2>&1
 cd nginx-quic
@@ -13,7 +16,8 @@ git clone https://github.com/quictls/openssl > /dev/null 2>&1
 echo Build quictls.
 cd openssl
 mkdir build
-./Configure --prefix=$(pwd)/build --openssldir=$(pwd)/build enable-ktls enable-ec_nistp_64_gcc_128 > /dev/null 2>&1
+./Configure --prefix=$(pwd)/build --openssldir=$(pwd)/build \
+enable-ktls enable-ec_nistp_64_gcc_128 > /dev/null 2>&1
 make install_dev -j$(nproc) > /dev/null 2>&1
 echo Fetch additional dependencies.
 cd ..
@@ -59,7 +63,7 @@ auto/configure --prefix=/etc/nginx --sbin-path=/usr/sbin/nginx \
 --with-zlib=modules/zlib \
 --with-cc-opt="-static -Imodules/openssl/build/include -fstack-protector-strong -Wno-sign-compare" \
 --with-ld-opt="-ljemalloc -Lmodules/openssl/build/lib64" > /dev/null 2>&1
-make -j$(nproc) > /dev/null 2>&1
+make -j$(nproc)
 mv objs/nginx ..
 cd ..
 hash=$(sha256sum nginx | awk '{print $1}')
