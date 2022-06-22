@@ -53,7 +53,7 @@ auto/configure --prefix=/etc/nginx --sbin-path=/usr/sbin/nginx \
 --without-http_upstream_random_module --without-http_upstream_zone_module \
 --without-http_userid_module --without-http_uwsgi_module \
 --with-zlib=modules/zlib --with-openssl=modules/openssl \
---with-openssl-opt="--with-zlib-lib=../zlib enable-ktls enable-ec_nistp_64_gcc_128 zlib" \
+--with-openssl-opt="enable-ktls enable-ec_nistp_64_gcc_128" \
 --with-cc-opt="-Imodules/openssl/build/include -fstack-protector-strong -Wno-sign-compare" \
 --with-ld-opt="-ljemalloc -Lmodules/openssl/build/lib64"
 make -j$(nproc)
