@@ -32,6 +32,6 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           files: /home/runner/work/_temp/_github_home/nginx
-          body: "SHA256: ${{ env.hash }}"
+          body: "Size: ${{ env.size }}"
           tag_name: v1.${{ env.minor }}.${{ env.patch }}
           generate_release_notes: false
