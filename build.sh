@@ -29,6 +29,7 @@ echo Build nginx.
 cd ..
 auto/configure --prefix=/etc/nginx --sbin-path=/usr/sbin/nginx \
 --add-module=modules/ngx_waf \
+--add-module=modules/ngx_brotli \
 --add-module=modules/headers-more-nginx-module \
 --add-module=modules/ngx_http_geoip2_module \
 --conf-path=/etc/nginx/nginx.conf \
