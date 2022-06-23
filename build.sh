@@ -42,9 +42,8 @@ auto/configure --prefix=/etc/nginx --sbin-path=/usr/sbin/nginx \
 --without-http_upstream_least_conn_module --without-http_upstream_random_module \
 --without-http_upstream_zone_module --without-http_userid_module \
 --without-http_uwsgi_module --with-zlib=modules/zlib --with-openssl=modules/openssl \
---with-openssl-opt="-Wl,-ljemalloc -fpie -Wl,-pie -fpic -O3 -pipe -Wl,-z,now -Wl,-z,relro -flto=thin enable-ktls no-comp enable-ec_nistp_64_gcc_128 no-ssl3-method no-tls1-method no-tls1_1-method no-dtls1-method no-dtls1_2-method" \
---with-cc-opt="-fpie -fpic -O3 -pipe -flto=thin" \
---with-ld-opt="-ljemalloc -pie -z,now -z,relro"
+--with-openssl-opt="-Wl,-ljemalloc -fpie -Wl,-pie -fpic -O3 -pipe -Wl,-z,now -Wl,-z,relro -fwhopr enable-ktls no-comp enable-ec_nistp_64_gcc_128 no-ssl3-method no-tls1-method no-tls1_1-method no-dtls1-method no-dtls1_2-method" \
+--with-cc-opt="-Wl,-ljemalloc -fpie -Wl,-pie -fpic -O3 -pipe -Wl,-z,now -Wl,-z,relro -fwhopr"
 make -j$(nproc)
 mv objs/nginx ..
 cd ..
