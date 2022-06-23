@@ -32,9 +32,10 @@ auto/configure --prefix=/etc/nginx --sbin-path=/usr/sbin/nginx \
 --http-client-body-temp-path=/var/cache/nginx/client_temp \
 --http-proxy-temp-path=/var/cache/nginx/proxy_temp \
 --http-fastcgi-temp-path=/var/cache/nginx/fastcgi_temp \
---user=nginx --group=nginx -–without-select_module --without-poll_module \
---with-file-aio --with-threads --with-http_ssl_module \
---with-http_v2_module --with-http_v3_module \
+--user=nginx --group=nginx \
+--without-select_module --without-poll_module \
+--with-file-aio --with-threads \
+--with-http_ssl_module --with-http_v2_module --with-http_v3_module \
 --without-http_access_module --without-http_autoindex_module \
 --without-http_browser_module --without-http_charset_module \
 --without-http_empty_gif_module --without-http_limit_conn_module \
