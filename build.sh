@@ -49,7 +49,7 @@ auto/configure --prefix=/etc/nginx --sbin-path=/usr/sbin/nginx \
 --without-http_userid_module --without-http_uwsgi_module \
 --with-zlib=modules/zlib --with-openssl=modules/openssl \
 --with-openssl-opt="-ljemalloc enable-ktls no-comp enable-ec_nistp_64_gcc_128 no-ssl3-method no-tls1-method no-tls1_1-method no-dtls1-method no-dtls1_2-method" \
---with-cc-opt="-ljemalloc -D_FORTIFY_SOURCE=2 -D_GLIBCXX_ASSERTIONS -fasynchronous-unwind-tables -fexceptions -fpie -Wl,-pie -fpic -shared -fplugin=annobin -fstack-clash-protection -fstack-protector-strong -mcet -fcf-protection -O3 -pipe -Wall -Werror=format-security -Werror=implicit-function-declaration -Wl,-z,defs -Wl,-z,now -Wl,-z,relro -flto"
+--with-cc-opt="-ljemalloc -D_FORTIFY_SOURCE=2 -D_GLIBCXX_ASSERTIONS -fasynchronous-unwind-tables -fexceptions -fpie -Wl,-pie -fpic -shared -fplugin=annobin -fstack-clash-protection -fstack-protector-strong -mcet -fcf-protection -O3 -Wall -Werror=format-security -Werror=implicit-function-declaration -Wl,-z,defs -Wl,-z,now -Wl,-z,relro -flto"
 make -j$(nproc)
 mv objs/nginx ..
 cd ..
