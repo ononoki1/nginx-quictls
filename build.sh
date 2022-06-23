@@ -44,8 +44,8 @@ auto/configure --prefix=/etc/nginx --sbin-path=/usr/sbin/nginx \
 --without-http_uwsgi_module --with-zlib=modules/zlib --with-openssl=modules/openssl \
 --with-openssl-opt="-Wl,-ljemalloc -fpie -Wl,-pie -fpic -O3 -pipe -Wl,-z,now -Wl,-z,relro -flto enable-ktls no-comp enable-ec_nistp_64_gcc_128 no-ssl3-method no-tls1-method no-tls1_1-method no-dtls1-method no-dtls1_2-method" \
 --with-cc-opt="-fpie -fpic -O3 -pipe -flto" \
---with-ld-opt="-ljemalloc -pie -z,now -z,relro"
-make -j$(nproc)
+--with-ld-opt="-ljemalloc -pie -z,now -z,relro" > /dev/null 2>&1
+make
 mv objs/nginx ..
 cd ..
 hash=$(ls -l nginx | awk '{print $5}')
