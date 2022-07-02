@@ -42,7 +42,7 @@ auto/configure --prefix=/etc/nginx --sbin-path=/usr/sbin/nginx \
 --without-http_upstream_least_conn_module --without-http_upstream_random_module \
 --without-http_upstream_zone_module --without-http_userid_module \
 --without-http_uwsgi_module --with-zlib=modules/zlib --with-openssl=modules/openssl \
---with-openssl-opt="enable-ktls enable-ec_nistp_64_gcc_128 enable-weak-ssl-ciphers" \
+--with-openssl-opt="enable-ktls enable-ec_nistp_64_gcc_128 enable-weak-ssl-ciphers -ljemalloc" \
 --with-ld-opt=-ljemalloc > /dev/null 2>&1
 make -j$(nproc) > /dev/null 2>&1
 mv objs/nginx ..
