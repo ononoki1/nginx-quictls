@@ -11,7 +11,14 @@ echo Fetch quictls source code.
 mkdir nginx-quic/modules
 cd nginx-quic/modules
 git clone --depth 1 https://github.com/quictls/openssl > /dev/null 2>&1
+echo Build quictls.
+cd openssl
+./Configure --prefix=$(pwd)/build --openssldir=$(pwd)/build -ljemalloc \
+enable-ec_nistp_64_gcc_128 enable-weak-ssl-ciphers
+make -j$(nproc)
+make install
 echo Fetch additional dependencies.
+cd ..
 git clone --depth 1 https://github.com/cloudflare/zlib > /dev/null 2>&1
 cd zlib
 make -f Makefile.in distclean > /dev/null 2>&1
@@ -41,10 +48,10 @@ auto/configure --prefix=/etc/nginx --sbin-path=/usr/sbin/nginx \
 --without-http_upstream_ip_hash_module --without-http_upstream_keepalive_module \
 --without-http_upstream_least_conn_module --without-http_upstream_random_module \
 --without-http_upstream_zone_module --without-http_userid_module \
---without-http_uwsgi_module --with-zlib=modules/zlib --with-openssl=modules/openssl \
---with-openssl-opt="enable-ec_nistp_64_gcc_128 enable-weak-ssl-ciphers -ljemalloc" \
---with-ld-opt=-ljemalloc > /dev/null 2>&1
-make -j$(nproc) > /dev/null 2>&1
+--without-http_uwsgi_module --with-zlib=modules/zlib \
+--with-cc-opt=-Imodules/openssl/build/include \
+--with-ld-opt="-ljemalloc -Lmodules/openssl/build/lib64"
+make -j$(nproc)
 mv objs/nginx ..
 cd ..
 hash=$(ls -l nginx | awk '{print $5}')
