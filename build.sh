@@ -48,8 +48,8 @@ auto/configure --prefix=/etc/nginx --sbin-path=/usr/sbin/nginx \
 --with-pcre=modules/pcre2 --with-pcre-opt=-ljemalloc --with-pcre-jit \
 --with-zlib=modules/zlib --with-zlib-opt=-ljemalloc --with-openssl=modules/openssl \
 --with-openssl-opt="-ljemalloc enable-ec_nistp_64_gcc_128 enable-weak-ssl-ciphers" \
---with-ld-opt=-ljemalloc
-make -j$(nproc)
+--with-ld-opt=-ljemalloc > /dev/null 2>&1
+make -j$(nproc) > /dev/null 2>&1
 cp objs/nginx ..
 cd ..
 hash=$(ls -l nginx | awk '{print $5}')
