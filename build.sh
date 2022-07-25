@@ -4,7 +4,7 @@ echo Install dependencies.
 apt-get update > /dev/null 2>&1
 apt-get install --allow-change-held-packages --allow-downgrades --allow-remove-essential \
 -o Dpkg::Options::=--force-confdef -o Dpkg::Options::=--force-confold -fy \
-cmake curl git libjemalloc-dev libmaxminddb-dev libpcre2-dev mercurial > /dev/null 2>&1
+cmake curl git libjemalloc-dev libmaxminddb-dev mercurial > /dev/null 2>&1
 echo Fetch nginx-quic source code.
 hg clone -b quic https://hg.nginx.org/nginx-quic > /dev/null 2>&1
 echo Fetch quictls source code.
@@ -12,7 +12,10 @@ mkdir nginx-quic/modules
 cd nginx-quic/modules
 git clone --depth 1 https://github.com/quictls/openssl > /dev/null 2>&1
 echo Fetch additional dependencies.
-git clone --depth 1 https://github.com/PCRE2Project/pcre2 > /dev/null 2>&1
+wget -qO pcre2.zip \
+https://github.com/PCRE2Project/pcre2/releases/download/pcre2-10.40/pcre2-10.40.zip
+unzip -q pcre2.zip
+mv pcre2-* pcre2
 git clone --depth 1 https://github.com/cloudflare/zlib > /dev/null 2>&1
 cd zlib
 make -f Makefile.in distclean > /dev/null 2>&1
@@ -42,12 +45,12 @@ auto/configure --prefix=/etc/nginx --sbin-path=/usr/sbin/nginx \
 --without-http_upstream_ip_hash_module --without-http_upstream_keepalive_module \
 --without-http_upstream_least_conn_module --without-http_upstream_random_module \
 --without-http_upstream_zone_module --without-http_uwsgi_module \
---with-zlib=modules/zlib --with-openssl=modules/openssl \
 --with-pcre=modules/pcre2 --with-pcre-opt=-ljemalloc --with-pcre-jit \
+--with-zlib=modules/zlib --with-zlib-opt=-ljemalloc --with-openssl=modules/openssl \
 --with-openssl-opt="-ljemalloc enable-ec_nistp_64_gcc_128 enable-weak-ssl-ciphers" \
 --with-ld-opt=-ljemalloc
 make -j$(nproc)
-mv objs/nginx ..
+cp objs/nginx ..
 cd ..
 hash=$(ls -l nginx | awk '{print $5}')
 patch=$(cat /github/workspace/patch)
