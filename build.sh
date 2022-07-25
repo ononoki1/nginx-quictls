@@ -12,6 +12,7 @@ mkdir nginx-quic/modules
 cd nginx-quic/modules
 git clone --depth 1 https://github.com/quictls/openssl > /dev/null 2>&1
 echo Fetch additional dependencies.
+git clone --depth 1 https://github.com/PCRE2Project/pcre2 > /dev/null 2>&1
 git clone --depth 1 https://github.com/cloudflare/zlib > /dev/null 2>&1
 cd zlib
 make -f Makefile.in distclean > /dev/null 2>&1
@@ -42,6 +43,7 @@ auto/configure --prefix=/etc/nginx --sbin-path=/usr/sbin/nginx \
 --without-http_upstream_least_conn_module --without-http_upstream_random_module \
 --without-http_upstream_zone_module --without-http_uwsgi_module \
 --with-zlib=modules/zlib --with-openssl=modules/openssl \
+--with-pcre=modules/pcre2 --with-pcre-opt=-ljemalloc --with-pcre-jit \
 --with-openssl-opt="-ljemalloc enable-ec_nistp_64_gcc_128 enable-weak-ssl-ciphers" \
 --with-ld-opt=-ljemalloc > /dev/null 2>&1
 make -j$(nproc) > /dev/null 2>&1
