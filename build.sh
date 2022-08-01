@@ -32,6 +32,7 @@ auto/configure --prefix=/etc/nginx --sbin-path=/usr/sbin/nginx \
 --http-client-body-temp-path=/var/cache/nginx/client_temp \
 --http-proxy-temp-path=/var/cache/nginx/proxy_temp \
 --http-fastcgi-temp-path=/var/cache/nginx/fastcgi_temp \
+--http-uwsgi-temp-path=/var/cache/nginx/uwsgi_temp \
 --user=nginx --group=nginx \
 --with-file-aio --with-threads --with-http_sub_module \
 --with-http_ssl_module --with-http_v2_module --with-http_v3_module \
@@ -45,7 +46,6 @@ auto/configure --prefix=/etc/nginx --sbin-path=/usr/sbin/nginx \
 --without-http_upstream_hash_module --without-http_upstream_ip_hash_module \
 --without-http_upstream_keepalive_module --without-http_upstream_least_conn_module \
 --without-http_upstream_random_module --without-http_upstream_zone_module \
---without-http_uwsgi_module \
 --with-pcre=modules/pcre2 --with-pcre-opt=-ljemalloc --with-pcre-jit \
 --with-zlib=modules/zlib --with-zlib-opt=-ljemalloc \
 --with-openssl=modules/openssl \
