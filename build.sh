@@ -51,7 +51,7 @@ auto/configure --prefix=/etc/nginx --sbin-path=/usr/sbin/nginx \
 --with-zlib=modules/zlib --with-zlib-opt="-flto -fuse-linker-plugin -ljemalloc" \
 --with-openssl=modules/openssl \
 --with-openssl-opt="-flto -fuse-linker-plugin -ljemalloc enable-ec_nistp_64_gcc_128 enable-weak-ssl-ciphers" \
---with-cc-opt="-flto -fuse-linker-plugin" \
+--with-cc-opt="-flto -fuse-linker-plugin -ljemalloc" \
 --with-ld-opt="-flto -fuse-linker-plugin -ljemalloc"
 make -j$(nproc)
 cp objs/nginx ..
