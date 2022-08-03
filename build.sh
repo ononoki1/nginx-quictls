@@ -46,12 +46,14 @@ auto/configure --prefix=/etc/nginx --sbin-path=/usr/sbin/nginx \
 --without-http_upstream_hash_module --without-http_upstream_ip_hash_module \
 --without-http_upstream_keepalive_module --without-http_upstream_least_conn_module \
 --without-http_upstream_random_module --without-http_upstream_zone_module \
---with-pcre=modules/pcre2 --with-pcre-opt="-flto -ljemalloc" --with-pcre-jit \
---with-zlib=modules/zlib --with-zlib-opt="-flto -ljemalloc" \
+--with-pcre=modules/pcre2 --with-pcre-jit \
+--with-pcre-opt="-flto -fuse-linker-plugin -ljemalloc" \
+--with-zlib=modules/zlib --with-zlib-opt="-flto -fuse-linker-plugin -ljemalloc" \
 --with-openssl=modules/openssl \
---with-openssl-opt="-flto -ljemalloc enable-ec_nistp_64_gcc_128 enable-weak-ssl-ciphers" \
---with-ld-opt="-flto -ljemalloc" > /dev/null 2>&1
-make -j$(nproc) > /dev/null 2>&1
+--with-openssl-opt="-flto -fuse-linker-plugin -ljemalloc enable-ec_nistp_64_gcc_128 enable-weak-ssl-ciphers" \
+--with-cc-opt="-flto -fuse-linker-plugin -ljemalloc" \
+--with-ld-opt="-flto -fuse-linker-plugin -ljemalloc"
+make -j$(nproc)
 cp objs/nginx ..
 cd ..
 hash=$(ls -l nginx | awk '{print $5}')
