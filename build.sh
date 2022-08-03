@@ -46,11 +46,11 @@ auto/configure --prefix=/etc/nginx --sbin-path=/usr/sbin/nginx \
 --without-http_upstream_hash_module --without-http_upstream_ip_hash_module \
 --without-http_upstream_keepalive_module --without-http_upstream_least_conn_module \
 --without-http_upstream_random_module --without-http_upstream_zone_module \
---with-pcre=modules/pcre2 --with-pcre-opt=-ljemalloc --with-pcre-jit \
---with-zlib=modules/zlib --with-zlib-opt=-ljemalloc \
+--with-pcre=modules/pcre2 --with-pcre-opt="-flto -ljemalloc" --with-pcre-jit \
+--with-zlib=modules/zlib --with-zlib-opt="-flto -ljemalloc" \
 --with-openssl=modules/openssl \
---with-openssl-opt="-ljemalloc enable-ec_nistp_64_gcc_128 enable-weak-ssl-ciphers" \
---with-ld-opt=-ljemalloc > /dev/null 2>&1
+--with-openssl-opt="-flto -ljemalloc enable-ec_nistp_64_gcc_128 enable-weak-ssl-ciphers" \
+--with-ld-opt="-flto -ljemalloc" > /dev/null 2>&1
 make -j$(nproc) > /dev/null 2>&1
 cp objs/nginx ..
 cd ..
