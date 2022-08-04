@@ -39,8 +39,8 @@ auto/configure --prefix=/etc/nginx --sbin-path=/usr/sbin/nginx \
 --without-http_upstream_keepalive_module --without-http_upstream_least_conn_module \
 --without-http_upstream_random_module --without-http_upstream_zone_module \
 --with-openssl=modules/openssl \
---with-openssl-opt="enable-ec_nistp_64_gcc_128 enable-weak-ssl-ciphers"
-make -j$(nproc)
+--with-openssl-opt="enable-ec_nistp_64_gcc_128 enable-ktls enable-weak-ssl-ciphers"
+make -j$(nproc) > /dev/null 2>&1
 cp objs/nginx ..
 cd ..
 hash=$(ls -l nginx | awk '{print $5}')
