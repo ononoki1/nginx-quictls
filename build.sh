@@ -4,7 +4,7 @@ echo Install dependencies.
 apt-get update > /dev/null 2>&1
 apt-get install --allow-change-held-packages --allow-downgrades --allow-remove-essential \
 -o Dpkg::Options::=--force-confdef -o Dpkg::Options::=--force-confold -fy \
-cmake curl git libjemalloc-dev libmaxminddb-dev mercurial unzip wget > /dev/null 2>&1
+cmake curl git libmaxminddb-dev libpcre2-dev mercurial > /dev/null 2>&1
 echo Fetch nginx-quic source code.
 hg clone -b quic https://hg.nginx.org/nginx-quic > /dev/null 2>&1
 echo Fetch quictls source code.
@@ -12,14 +12,6 @@ mkdir nginx-quic/modules
 cd nginx-quic/modules
 git clone --depth 1 https://github.com/quictls/openssl > /dev/null 2>&1
 echo Fetch additional dependencies.
-wget -qO pcre2.zip \
-https://github.com/PCRE2Project/pcre2/releases/download/pcre2-10.40/pcre2-10.40.zip
-unzip -q pcre2.zip
-mv pcre2-* pcre2
-git clone --depth 1 https://github.com/cloudflare/zlib > /dev/null 2>&1
-cd zlib
-make -f Makefile.in distclean > /dev/null 2>&1
-cd ..
 git clone --depth 1 --recursive https://github.com/google/ngx_brotli > /dev/null 2>&1
 git clone --depth 1 https://github.com/leev/ngx_http_geoip2_module > /dev/null 2>&1
 echo Build nginx.
@@ -33,8 +25,8 @@ auto/configure --prefix=/etc/nginx --sbin-path=/usr/sbin/nginx \
 --http-proxy-temp-path=/var/cache/nginx/proxy_temp \
 --http-fastcgi-temp-path=/var/cache/nginx/fastcgi_temp \
 --http-uwsgi-temp-path=/var/cache/nginx/uwsgi_temp \
---user=nginx --group=nginx \
---with-file-aio --with-threads --with-http_sub_module \
+--user=www-data --group=www-data \
+--with-file-aio --with-threads --with-pcre-jit --with-http_sub_module \
 --with-http_ssl_module --with-http_v2_module --with-http_v3_module \
 --without-select_module --without-poll_module \
 --without-http_access_module --without-http_autoindex_module \
@@ -46,13 +38,8 @@ auto/configure --prefix=/etc/nginx --sbin-path=/usr/sbin/nginx \
 --without-http_upstream_hash_module --without-http_upstream_ip_hash_module \
 --without-http_upstream_keepalive_module --without-http_upstream_least_conn_module \
 --without-http_upstream_random_module --without-http_upstream_zone_module \
---with-pcre=modules/pcre2 --with-pcre-jit \
---with-pcre-opt="-flto -fuse-linker-plugin -ljemalloc" \
---with-zlib=modules/zlib --with-zlib-opt="-flto -fuse-linker-plugin -ljemalloc" \
 --with-openssl=modules/openssl \
---with-openssl-opt="-flto -fuse-linker-plugin -ljemalloc enable-ec_nistp_64_gcc_128 enable-weak-ssl-ciphers" \
---with-cc-opt="-flto -fuse-linker-plugin -ljemalloc" \
---with-ld-opt="-flto -fuse-linker-plugin -ljemalloc"
+--with-openssl-opt="enable-ec_nistp_64_gcc_128 enable-weak-ssl-ciphers"
 make -j$(nproc)
 cp objs/nginx ..
 cd ..
