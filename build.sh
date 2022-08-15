@@ -1,7 +1,17 @@
 set -e
+export APT_LISTCHANGES_FRONTEND=none
+export DEBIAN_FRONTEND=noninteractive
 cd /github/home
 echo Install dependencies.
 apt-get update > /dev/null 2>&1
+apt-get install --allow-change-held-packages --allow-downgrades --allow-remove-essential \
+-o Dpkg::Options::=--force-confdef -o Dpkg::Options::=--force-confold -fy \
+ca-certificates > /dev/null 2>&1
+echo -e 'deb https://deb.debian.org/debian bookworm main contrib non-free\ndeb https://deb.debian.org/debian-security bookworm-security main contrib non-free\ndeb https://deb.debian.org/debian bookworm-updates main contrib non-free' \
+> /etc/apt/sources.list
+apt-get update > /dev/null 2>&1
+apt-get dist-upgrade --allow-change-held-packages --allow-downgrades --allow-remove-essential \
+-o Dpkg::Options::=--force-confdef -o Dpkg::Options::=--force-confold -fy > /dev/null 2>&1
 apt-get install --allow-change-held-packages --allow-downgrades --allow-remove-essential \
 -o Dpkg::Options::=--force-confdef -o Dpkg::Options::=--force-confold -fy \
 cmake curl git libmaxminddb-dev libpcre2-dev mercurial zlib1g-dev > /dev/null 2>&1
