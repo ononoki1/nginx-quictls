@@ -10,7 +10,7 @@ Similar to [nginx-http3](https://github.com/ononoki1/nginx-http3), except that i
 
 ## Usage
 
-Run following commands.
+First, install NGINX from [nginx-http3](https://github.com/ononoki1/nginx-http3), [Debian's official package](https://packages.debian.org/bullseye/nginx) or [NGINX's official package](https://nginx.org/en/linux_packages.html#Debian). Then run following commands.
 
 ```bash
 sudo systemctl stop nginx
