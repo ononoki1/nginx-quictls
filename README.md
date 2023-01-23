@@ -13,8 +13,8 @@ Similar to [nginx-http3](https://github.com/ononoki1/nginx-http3), except that i
 Run following commands.
 
 ```bash
-systemctl stop nginx
-wget https://github.com/ononoki1/nginx-quictls/releases/latest/download/nginx -O /usr/sbin/nginx
-chmod +x /usr/sbin/nginx
-systemctl start nginx
+sudo systemctl stop nginx
+sudo wget https://github.com/ononoki1/nginx-quictls/releases/latest/download/nginx -O /usr/sbin/nginx
+sudo chmod +x /usr/sbin/nginx
+sudo systemctl start nginx
 ```
