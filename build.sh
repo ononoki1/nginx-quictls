@@ -47,7 +47,7 @@ auto/configure --prefix=/etc/nginx --sbin-path=/usr/sbin/nginx \
 make -j$(nproc) > /dev/null 2>&1
 cp objs/nginx ..
 cd ..
-hash=$(ls -l nginx | awk '{print $5}')
+hash=$(sha256sum nginx | awk '{print $1}')
 patch=$(cat /github/workspace/patch)
 minor=$(cat /github/workspace/minor)
 if [[ $hash != $(cat /github/workspace/hash) ]]; then
