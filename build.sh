@@ -5,11 +5,11 @@ apt-get update > /dev/null 2>&1
 apt-get install --allow-change-held-packages --allow-downgrades --allow-remove-essential \
 -o Dpkg::Options::=--force-confdef -o Dpkg::Options::=--force-confold -fy \
 cmake git libmaxminddb-dev libpcre2-dev mercurial zlib1g-dev > /dev/null 2>&1
-echo Fetch nginx-quic source code.
-hg clone https://hg.nginx.org/nginx > /dev/null 2>&1
+echo Fetch NGINX source code.
+hg clone https://hg.nginx.org/nginx ngx > /dev/null 2>&1
 echo Fetch quictls source code.
-mkdir nginx/modules
-cd nginx/modules
+mkdir ngx/modules
+cd ngx/modules
 git clone --depth 1 --recursive https://github.com/quictls/openssl > /dev/null 2>&1
 echo Fetch additional dependencies.
 git clone --depth 1 --recursive https://github.com/google/ngx_brotli > /dev/null 2>&1
@@ -39,8 +39,8 @@ auto/configure --prefix=/etc/nginx --sbin-path=/usr/sbin/nginx \
 --without-http_upstream_hash_module --without-http_upstream_ip_hash_module \
 --without-http_upstream_keepalive_module --without-http_upstream_least_conn_module \
 --without-http_upstream_random_module --without-http_upstream_zone_module \
---with-openssl=modules/openssl
-make -j$(nproc)
+--with-openssl=modules/openssl > /dev/null 2>&1
+make -j$(nproc) > /dev/null 2>&1
 cp objs/nginx ..
 cd ..
 hash=$(ls -l nginx | awk '{print $5}')
