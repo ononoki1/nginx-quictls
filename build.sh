@@ -4,12 +4,12 @@ echo Install dependencies.
 apt-get update > /dev/null 2>&1
 apt-get install --allow-change-held-packages --allow-downgrades --allow-remove-essential \
 -o Dpkg::Options::=--force-confdef -o Dpkg::Options::=--force-confold -fy \
-cmake git libgd-dev libmaxminddb-dev libpcre2-dev mercurial zlib1g-dev > /dev/null 2>&1
-echo Fetch nginx-quic source code.
-hg clone -b quic https://hg.nginx.org/nginx-quic > /dev/null 2>&1
+cmake git libmaxminddb-dev libpcre2-dev mercurial zlib1g-dev > /dev/null 2>&1
+echo Fetch NGINX source code.
+hg clone https://hg.nginx.org/nginx ngx > /dev/null 2>&1
 echo Fetch quictls source code.
-mkdir nginx-quic/modules
-cd nginx-quic/modules
+mkdir ngx/modules
+cd ngx/modules
 git clone --depth 1 --recursive https://github.com/quictls/openssl > /dev/null 2>&1
 echo Fetch additional dependencies.
 git clone --depth 1 --recursive https://github.com/google/ngx_brotli > /dev/null 2>&1
