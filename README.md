@@ -1,6 +1,6 @@
 # nginx-quictls
 
-Similar to [nginx-http3](https://github.com/ononoki1/nginx-http3), except that it uses [quictls](https://github.com/quictls/openssl) instead of OpenSSL.
+Similar to [nginx-http3](https://github.com/ononoki1/nginx-http3), except that it only provides a single binary `nginx` instead of Debian package.
 
 ## Distribution switch notice
 
