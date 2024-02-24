@@ -18,7 +18,7 @@ jobs:
       - name: Build
         uses: ./
       - name: Upload
-        uses: actions/upload-artifact@4
+        uses: actions/upload-artifact@v4
         with:
           name: v7.${{ env.minor }}.${{ env.patch }}
           path: /home/runner/work/_temp/_github_home/nginx
