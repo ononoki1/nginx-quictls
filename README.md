@@ -10,7 +10,7 @@ According to [Debian Wiki](https://wiki.debian.org/DebianReleases), Debian bulls
 
 ## Usage
 
-First, install NGINX from [nginx-http3](https://github.com/ononoki1/nginx-http3), [Debian's official package](https://packages.debian.org/bullseye/nginx) or [NGINX's official package](https://nginx.org/en/linux_packages.html#Debian). Then run following commands.
+First, install NGINX from [nginx-http3](https://github.com/ononoki1/nginx-http3), [Debian's official package](https://packages.debian.org/bookworm/nginx) or [NGINX's official package](https://nginx.org/en/linux_packages.html#Debian). Then run following commands.
 
 ```bash
 sudo systemctl stop nginx
