@@ -6,6 +6,8 @@ Similar to [nginx-http3](https://github.com/ononoki1/nginx-http3), except that i
 
 According to [Debian Wiki](https://wiki.debian.org/DebianReleases), Debian bullseye will reach its end-of-life date in July 2024. Therefore, the project will switch to Debian bookworm as the packaging environment in June 2024.
 
+**Update:** already switched on June 25th.
+
 ## Usage
 
 First, install NGINX from [nginx-http3](https://github.com/ononoki1/nginx-http3), [Debian's official package](https://packages.debian.org/bullseye/nginx) or [NGINX's official package](https://nginx.org/en/linux_packages.html#Debian). Then run following commands.
