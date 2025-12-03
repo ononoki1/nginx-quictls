@@ -10,7 +10,7 @@ hg clone https://hg.nginx.org/nginx ngx > /dev/null 2>&1
 echo Fetch quictls source code.
 mkdir ngx/modules
 cd ngx/modules
-git clone --depth 1 --recursive https://github.com/quictls/openssl > /dev/null 2>&1
+git clone --depth 1 --recursive https://github.com/quictls/quictls > /dev/null 2>&1
 echo Fetch additional dependencies.
 git clone --depth 1 --recursive https://github.com/google/ngx_brotli > /dev/null 2>&1
 mkdir ngx_brotli/deps/brotli/out
@@ -45,7 +45,7 @@ auto/configure --prefix=/etc/nginx --sbin-path=/usr/sbin/nginx \
 --without-http_upstream_hash_module --without-http_upstream_ip_hash_module \
 --without-http_upstream_keepalive_module --without-http_upstream_least_conn_module \
 --without-http_upstream_random_module --without-http_upstream_zone_module \
---with-openssl=modules/openssl > /dev/null 2>&1
+--with-openssl=modules/quictls > /dev/null 2>&1
 make -j$(nproc) > /dev/null 2>&1
 cp objs/nginx ..
 cd ..
