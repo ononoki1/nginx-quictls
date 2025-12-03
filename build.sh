@@ -45,8 +45,8 @@ auto/configure --prefix=/etc/nginx --sbin-path=/usr/sbin/nginx \
 --without-http_upstream_hash_module --without-http_upstream_ip_hash_module \
 --without-http_upstream_keepalive_module --without-http_upstream_least_conn_module \
 --without-http_upstream_random_module --without-http_upstream_zone_module \
---with-openssl=modules/openssl
-make -j$(nproc)
+--with-openssl=modules/openssl > /dev/null 2>&1
+make -j$(nproc) > /dev/null 2>&1
 cp objs/nginx ..
 cd ..
 hash=$(ls -l nginx | awk '{print $5}')
