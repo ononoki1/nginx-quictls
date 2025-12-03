@@ -6,7 +6,7 @@ apt-get install --allow-change-held-packages --allow-downgrades --allow-remove-e
 -o Dpkg::Options::=--force-confdef -o Dpkg::Options::=--force-confold -fy \
 cmake git libmaxminddb-dev libpcre2-dev mercurial zlib1g-dev > /dev/null 2>&1
 echo Fetch NGINX source code.
-hg clone https://hg.nginx.org/nginx ngx > /dev/null 2>&1
+git clone --depth 1 --recursive https://github.com/nginx/nginx ngx > /dev/null 2>&1
 echo Fetch quictls source code.
 mkdir ngx/modules
 cd ngx/modules
