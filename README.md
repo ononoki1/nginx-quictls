@@ -4,13 +4,11 @@ Similar to [nginx-http3](https://github.com/ononoki1/nginx-http3), except that i
 
 ## Distribution switch notice
 
-According to [Debian Wiki](https://wiki.debian.org/DebianReleases), Debian bullseye will reach its end-of-life date in July 2024. Therefore, the project will switch to Debian bookworm as the packaging environment in June 2024.
-
-**Update:** already switched on June 25th.
+According to [Debian Wiki](https://wiki.debian.org/DebianReleases), Debian bookworm has reached its end-of-life date in June 2026. Therefore, since version v9.0.0, the project will switch to Debian trixie as the packaging environment.
 
 ## Usage
 
-First, install NGINX from [nginx-http3](https://github.com/ononoki1/nginx-http3), [Debian's official package](https://packages.debian.org/bookworm/nginx) or [NGINX's official package](https://nginx.org/en/linux_packages.html#Debian). Then run following commands.
+First, install NGINX from [nginx-http3](https://github.com/ononoki1/nginx-http3), [Debian's official package](https://packages.debian.org/trixie/nginx) or [NGINX's official package](https://nginx.org/en/linux_packages.html#Debian). Then run following commands.
 
 ```bash
 sudo systemctl stop nginx
